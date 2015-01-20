@@ -4,10 +4,11 @@
 			<a href= "<%= url(article.slug) %>"> <%= article.title %> </a>
 		</h1>	
 		<time class="timeago" datetime="<%= article.date.xmlschema %>" >
+			<%= article.date.strftime "%Y/%m/%d" %>
 		</time>
 	</header>
 
 	<section class="content">
-		<%= markdown("# A Head") %>
+		<%= markdown( article.content ) %>
 	</section>
 </article>

@@ -14,19 +14,19 @@ class Blog < Sinatra::Base
   set :articles, []
   set :app_file, __FILE__
 
-  Dir.glob( "#{root}/articles/*.md" ) do |file|
+  Dir.glob( "#{root}/_posts/*.md" ) do |file|
   	# parse meta and contetn from file
   	# use
   	#  ---
   	#  ---
   	#  to mark metadata
-  	#_, meta, content = File.read(file).spilt('---', 3)
+  	_, meta, content = File.read(file).split('---', 3)
   	# regular expression to remove leading & trailing space
-  	#pattern = /^\S[\s\S]*\S$/
-  	#match = pattern.match( meta )
-  	#meta = match[0]
+  	pattern = /^\S[\s\S]*\S$/
+  	match = pattern.match( meta )
+  	meta = match[0]
 
-  	meta, content = File.read(file).split( "\n\n", 2 )
+  	#meta, content = File.read(file).split( "\n\n", 2 )
   	print "\n\n\n\n\n"
   	print "#{meta}, #{content}"
 
@@ -34,7 +34,9 @@ class Blog < Sinatra::Base
   	article = OpenStruct.new( YAML.load( meta ) )
 
   	# convert the date to a time object
-  	article.date = Time.parse( article.date.to_s )
+    if article.date
+      article.date = Time.parse( article.date.to_s )
+    end
 
   	# add the content
   	article.content = content
