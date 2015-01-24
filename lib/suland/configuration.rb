@@ -4,9 +4,10 @@ module Suland
 	class Configuration < Hash
 		# Default Settings
 		DefaultSettings = {
-			'root' =>	File.expand_path( "../../../", __FILE__ ),
+			'root' =>	File.join( 
+				File.expand_path( "../../../", __FILE__ ), 'source' ),
 			'destination' => File.join(
-				File.expand_path( "../../../", __FILE__ ), '_site' )
+				File.expand_path( "../../../", __FILE__ ), '_site' ),
 		}
 	end
 end

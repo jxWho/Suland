@@ -6,8 +6,14 @@ module Suland
 	autoload :Configuration, "suland/configuration"
 	autoload :Generate, "suland/generate"
 	autoload :Post, 'suland/post'
+	autoload :Render, 'suland/render'
+	autoload :Base, 'suland/base'
 
-	# external requires
+
+	# stdlib dependencies
 	require 'ostruct'
 	require 'yaml'
+
+	# external requires
+	require "tilt"
 end
