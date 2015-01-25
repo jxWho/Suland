@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require "pp"
+require 'ostruct'
+
+
+class SulandOptParser
+
+	def self.parse( args )
+
+		options = OpenStruct.new
+		options.verbose = true
+		
+		root = File.expand_path('../../', __FILE__ )
+
+		option_parser = OptionParser.new do |opts|
+			opts.banner = "here is help message"
+
+			opts.on('-t', '--test', 'run all test files') do
+				# find the tests under the folder `test` folder
+				Dir["#{root}/test/*.rb"].each do |fileName|
+					# call shell to run the tests
+					system "ruby #{fileName}"
+				end
+			end
+
+		end  # end option_parser
+
+		option_parser.parse!( args )
+		options
+	end
+end # end class SulandOptParse
+
+commandLineParser = SulandOptParser.parse( ARGV )
+puts commandLineParser
+
+
+
+

@@ -6,5 +6,5 @@ b = Suland::Render.new
  a.readPosts
 
 a.posts.each do |e|
-	print b.markdownte.content
+	print b.markdown e.content
  end
