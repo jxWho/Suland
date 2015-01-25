@@ -8,6 +8,7 @@ module Suland
 	autoload :Post, 'suland/post'
 	autoload :Render, 'suland/render'
 	autoload :Base, 'suland/base'
+	autoload :Utils, 'suland/utils'
 
 
 	# stdlib dependencies

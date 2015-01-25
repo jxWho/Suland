@@ -1,2 +1,0 @@
-rdiscount
-sinatra
