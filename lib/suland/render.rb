@@ -3,11 +3,11 @@
 module Suland
 	class Render
 
-		def markdown( data, options = {}, locals = {} )
+		def self.markdown( data, options = {}, locals = {} )
 			render :md, data, options, locals
 		end
 
-		def render( engine, data, options = {}, locals = {}, &block )
+		def self.render( engine, data, options = {}, locals = {}, &block )
 
 			# attr for `Tilt`
 			scope = options.delete( :scope ) || Object.new
@@ -20,7 +20,7 @@ module Suland
 			# assume here data is either block or string, not file
 			case data
 			when Proc, String
-				body = data.is_a?(String) ? Proc.new { data } : data	
+				body = data.is_a?(String) ? Proc.new { data } : data
 
 				template = template.new( file, line.to_i, options, &body )
 			else

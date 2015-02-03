@@ -3,6 +3,7 @@
 require 'optparse'
 require "pp"
 require 'ostruct'
+require	'FileUtils'
 
 
 class SulandOptParser
@@ -11,7 +12,7 @@ class SulandOptParser
 
 		options = OpenStruct.new
 		options.verbose = true
-		
+
 		root = File.expand_path('../../', __FILE__ )
 
 		option_parser = OptionParser.new do |opts|
@@ -23,7 +24,24 @@ class SulandOptParser
 					# call shell to run the tests
 					system "ruby #{fileName}"
 				end
-			end
+			end # end '-t'
+
+			opts.on('--clean', 'clean all extra test data') do
+				deletedFiles = []
+				Dir.foreach( "#{root}/test/" ) do |dirName|
+					pattern = /test*/
+					match = pattern =~ dirName
+
+					pattern = /^\./
+					matchHidden = pattern =~ dirName
+
+					if matchHidden.nil? and !dirName.eql?('..') and match.nil?
+						deletedFiles << dirName
+						FileUtils.remove_dir( "#{root}/test/#{dirName}/" )
+					end
+				end
+				puts "deleted files #{deletedFiles}"
+			end # end '--clean'
 
 		end  # end option_parser
 
@@ -34,7 +52,3 @@ end # end class SulandOptParse
 
 commandLineParser = SulandOptParser.parse( ARGV )
 puts commandLineParser
-
-
-
-

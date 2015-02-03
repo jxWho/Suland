@@ -8,8 +8,7 @@ class TestRender < Test::Unit::TestCase
 
 		should 'return <h1>head</h1>\n' do
 			data = "#head"
-			r = Suland::Render.new
-			output = r.markdown( data )
+			output = Suland::Render.markdown( data )
 			assert_equal "<h1>head</h1>\n", output
 		end
 

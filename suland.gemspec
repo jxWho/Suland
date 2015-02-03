@@ -9,6 +9,8 @@ Gem::Specification.new do |s|
 	s.platform = Gem::Platform::RUBY
 	s.required_ruby_version = '>=2.2.0'
 	s.files = Dir['**/**']
+	s.license = 'MIT'
+	s.email = 'hjxwho@gmail.com'
 
 	all_files = `git ls-files -z`.split("\x0")
 	s.executables = all_files.grep( %r{^[bin|lib]/} )
@@ -18,5 +20,5 @@ Gem::Specification.new do |s|
 
 	s.has_rdoc = false
 
-	s.add_runtime_dependency('tilt', '~> 2.0.1')
+	s.add_runtime_dependency('tilt', '~> 2.0')
 end

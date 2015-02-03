@@ -8,23 +8,12 @@ module Suland
 		attr_reader :root
 		attr_accessor :posts
 
-		def initialize( config )
+		def initialize( configuration )
 			# get the top-level folder
-			@config = config.clone
-			@root = File.expand_path( config['root'] ).freeze
+			@config = configuration.clone
+			@root = File.expand_path( configuration['root'] ).freeze
 
 			@posts ||= []
-		end
-
-		def setup
-
-			if File.exist?("#{@root}/product")
-				puts "Product folder already exists. Delete it"
-				Dir.rmdir( "#{@root}/product" )
-			end
-
-			# create the directory to put generated files
-			Dir.mkdir("#{@root}/product")
 		end
 
 		def readPosts
@@ -37,6 +26,7 @@ module Suland
 					postContent = File.read(
 									File.join( postsFoladerPath, fileName ))
 					newPost = Suland::Post.new postContent
+					newPost.fileName = fileName
 					@posts << newPost
 				end
 			end
