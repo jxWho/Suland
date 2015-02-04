@@ -18,4 +18,10 @@ module Suland
 
 	# external requires
 	require "tilt"
+
+	class << self
+		def configuration
+			configuration = Suland::Configuration::DefaultSettings
+		end
+	end
 end

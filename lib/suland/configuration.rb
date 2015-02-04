@@ -7,8 +7,8 @@ module Suland
 			'root' => File.expand_path( "../../../", __FILE__ ),
 			'destination' => File.join(
 				File.expand_path( "../../../", __FILE__ ), '_site' ),
-			'permalinkFormat' => 'year/month/date:/title',
-			'productionPost' => '_post'
+			'permalinkFormat' => 'year/month/day/title',
+			'postSource' => '_posts'
 		}
 
 		# public: Read the configuration from a file and merge with ths hash
@@ -17,7 +17,8 @@ module Suland
 		#
 		# Returns the full configuration, default configuration will be
 		# overriden by the values from this file
-		def configurationFromFile( file )
+		def configurationFromFile( file=nil )
+			return DefaultSettings if file.nil?
 			# return self as the final configuration object
 			configuration = clone
 

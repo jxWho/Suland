@@ -4,3 +4,6 @@ articles
 
 public/*
 source/*
+
+_site/*
+_posts/*

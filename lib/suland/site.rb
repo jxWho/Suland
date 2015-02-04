@@ -19,7 +19,7 @@ module Suland
 		def permanLink
 			result = ""
 			@siteLayers.each { |layer|
-				result += layer.to_s + '/'
+				result = result + layer.to_s + '/'
 			}
 			result
 		end

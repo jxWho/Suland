@@ -7,17 +7,18 @@ module Suland
 
 		attr_accessor :site, :render
 
-		def initialize( content, site, configuration, fName )
+		def initialize( content, configuration, fName )
 			_, @metadata, @content = content.split('---', 3)
 
 			@metadata = OpenStruct.new( YAML.load( @metadata ) )
 
-			@permalinkFormat = configuration.permalinkFormat
 			@site = site
+			fName.match( /[\d]{4}-[\d]{2}-[\d]{2}-[^.]+/ )
+			@fileName = {}
 			@fileName[:year], @fileName[:month], @fileName[:day],
-			@fileName[:title] = fName.split( '-' )
+			@fileName[:title] = $~.to_a[0].split( '-', 4 )
 
-			permalinkFormat = configuration.permalinkFormat
+			permalinkFormat = configuration["permalinkFormat"]
 			permalinkFormat = permalinkFormat.split('/')
 			layers = []
 
@@ -25,12 +26,11 @@ module Suland
 				layers << @fileName[ value.to_sym ]
 			}
 
-			postRoot =
-				File.join(
-				configuration["destination"], configuration["productPost"] )
+			postRoot = configuration["destination"]
 
-			newSite = Suland::Site.new postRoot, layers
+			newSite = Suland::Site.new( postRoot, layers )
 			newSite.post = self # site point back to this post
+			@site = newSite
 
 		end # end initialize
 

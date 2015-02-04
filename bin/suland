@@ -5,6 +5,10 @@ require "pp"
 require 'ostruct'
 require	'FileUtils'
 
+# set up the load path so that `suland` can be found
+$:.unshift File.join(File.dirname(__FILE__), %w{ .. lib })
+require 'suland'
+
 
 class SulandOptParser
 
@@ -42,6 +46,18 @@ class SulandOptParser
 				end
 				puts "deleted files #{deletedFiles}"
 			end # end '--clean'
+
+			opts.on('--build', 'create all static files') do
+				config = Suland::Configuration.new().configurationFromFile
+				puts config
+				# create product folder
+				destination = config['destination']
+				FileUtils.remove_dir( destination ) if Dir.exist?( destination )
+				Dir.mkdir( destination )
+
+				generateInstance = Suland::Generate.new( config )
+				generateInstance.process
+			end # end build option
 
 		end  # end option_parser
 
